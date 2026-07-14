@@ -3,7 +3,7 @@ import { handleGetAllBook,handleGetSingleBook,handleCreateNewBook,handleUpdateBo
 
 const router = Router();
 
-router.post("/",handleCreateNewBook)
+router.get("/",handleCreateNewBook)
 router.get("/all-book",handleGetAllBook)
 router.get("/book/:id",handleGetSingleBook)
 router.put("/update-book/:id",handleUpdateBook)
