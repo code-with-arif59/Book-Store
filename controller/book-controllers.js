@@ -2,25 +2,26 @@ import book from "../models/book-model.js";
 
 
 //! handleCreateBook-->
-async function handleCreateNewBook(req, res) {
-    console.log("server run");
-    
-//   try {
-//     const newBookData = req.body;
-//     let newlyCreateBook = await book.create(newBookData);
-//     res.status(201).json({
-//         success : true,
-//         message : "Book Created",
-//         data : newlyCreateBook
-//     })
-//   } catch (er) {
-//     res.status(500).json({   
-//       success: false,
-//       message : "unable to create a book",
-//       data :er.message
-//     });
-//   }
-}
+    async function handleCreateNewBook(req, res) {
+        console.log("server run");
+        res.send("helloe server")
+        
+    //   try {
+    //     const newBookData = req.body;
+    //     let newlyCreateBook = await book.create(newBookData);
+    //     res.status(201).json({
+    //         success : true,
+    //         message : "Book Created",
+    //         data : newlyCreateBook
+    //     })
+    //   } catch (er) {
+    //     res.status(500).json({   
+    //       success: false,
+    //       message : "unable to create a book",
+    //       data :er.message
+    //     });
+    //   }
+    }
 
 //! handleCGetAllBook-->
 async function handleGetAllBook(req, res) {
