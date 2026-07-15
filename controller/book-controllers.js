@@ -3,17 +3,17 @@ import book from "../models/book-model.js";
 
 //! handleCreateBook-->
     async function handleCreateNewBook(req, res) {
-//     let filepath = path.join(import.meta.dirname,".." , "pages","index.html")
+    let filepath = path.join(import.meta.dirname,".." , "pages","index.html")
 
-// try{
-//     let src = fs.createReadStream(filepath,"utf-8")
-//     src.pipe(res)
-// }
+try{
+    let src = fs.createReadStream(filepath,"utf-8")
+    src.pipe(res)
+}
 
-// catch(er){
-//     console.log("er",er); 
-// }
-res.send("hello server")
+catch(er){
+    console.log("er",er); 
+}
+// res.send("hello server")
         
     //   try {
     //     const newBookData = req.body;
