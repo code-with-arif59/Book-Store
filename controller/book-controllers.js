@@ -33,6 +33,10 @@ catch(er){
     //   }
     }
 
+    async function submitdata(req,res) {
+        res.send("<h1> data submit successfully</h1>")
+    }
+
 //! handleCGetAllBook-->
 async function handleGetAllBook(req, res) {
     try{
@@ -144,6 +148,7 @@ async function handleDeleteBook(req, res) {
 
 export {
   handleGetAllBook,
+  submitdata,
   handleGetSingleBook,
   handleCreateNewBook,
   handleUpdateBook,
