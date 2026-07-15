@@ -13,7 +13,7 @@ connectDB();
 //! MIDDLEWARES
 app.use(express.json())
 //! ROUTES
-app.use("/",bookRoutes)
+app.use("/v1/api",bookRoutes)
 
 app.listen(PORT,(er)=>{
     if(er) console.log(er);
