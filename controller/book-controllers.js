@@ -1,149 +1,151 @@
 import book from "../models/book-model.js";
-import fs from "fs"
-import path from "path"
+import fs from "fs";
+import path from "path";
 
 //! handleCreateBook-->
-    async function handleCreateNewBook(req, res) {
-    let filepath = path.join(import.meta.dirname,".." , "pages","index.html")
+async function handleCreateNewBook(req, res) {
+  let filepath = path.join(import.meta.dirname, "..", "pages", "index.html");
 
-try{
-    let src = fs.createReadStream(filepath,"utf-8")
-    src.pipe(res)
+  try {
+    let src = fs.createReadStream(filepath, "utf-8");
+    src.pipe(res);
+  } catch (er) {
+    console.log("er", er);
+  }
+  // res.send("hello server")
+
+  //   try {
+  //     const newBookData = req.body;
+  //     let newlyCreateBook = await book.create(newBookData);
+  //     res.status(201).json({
+  //         success : true,
+  //         message : "Book Created",
+  //         data : newlyCreateBook
+  //     })
+  //   } catch (er) {
+  //     res.status(500).json({
+  //       success: false,
+  //       message : "unable to create a book",
+  //       data :er.message
+  //     });
+  //   }
 }
 
-catch(er){
-    console.log("er",er); 
+async function submitdata(req, res) {
+  try {
+    
+    const data = req.body;
+    const newBook = await book.create(data);
+    res.status(201).json({
+      success: true,
+      message: "Data submitted successfully",
+      data: newBook,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message,
+    });
+  }
 }
-// res.send("hello server")
-        
-    //   try {
-    //     const newBookData = req.body;
-    //     let newlyCreateBook = await book.create(newBookData);
-    //     res.status(201).json({
-    //         success : true,
-    //         message : "Book Created",
-    //         data : newlyCreateBook
-    //     })
-    //   } catch (er) {
-    //     res.status(500).json({   
-    //       success: false,
-    //       message : "unable to create a book",
-    //       data :er.message
-    //     });
-    //   }
-    }
-
-    async function submitdata(req,res) {
-        res.send("<h1> data submit successfully</h1>")
-    }
 
 //! handleCGetAllBook-->
 async function handleGetAllBook(req, res) {
-    try{
-    const allBook = await book.find({})
-     if(allBook.length>0){
+  try {
+    const allBook = await book.find({});
+    if (allBook.length > 0) {
       res.status(200).json({
-        success : true,
-        message : "Fetch All Book",
-        data : allBook
-      })
-     }
-     else{
-        res.status(400).json({
-            success : false,
-            message : "Book Not Found",
-        })
-     }
+        success: true,
+        message: "Fetch All Book",
+        data: allBook,
+      });
+    } else {
+      res.status(400).json({
+        success: false,
+        message: "Book Not Found",
+      });
     }
-    catch(er){
+  } catch (er) {
     res.status(500).json({
-        success : false,
-        message :"Something Went Wrong"
-    })
-    }
+      success: false,
+      message: "Something Went Wrong",
+    });
+  }
 }
-async function handleGetSingleBook(req, res){
-    try{
-        const BookID = req.params.id
-        let data = await book.findById(BookID)
-        if(data){
-            res.status(200).json({
-                success:true,
-                message:"Fetch Single Data",
-                data
-            })
-        }
-        else{
-            res.status(404).json({
-                success:false,
-                message:"Book Not Found"
-            })
-        }
+async function handleGetSingleBook(req, res) {
+  try {
+    const BookID = req.params.id;
+    let data = await book.findById(BookID);
+    if (data) {
+      res.status(200).json({
+        success: true,
+        message: "Fetch Single Data",
+        data,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Book Not Found",
+      });
     }
-    catch(er){
+  } catch (er) {
     res.status(500).json({
-        success:false,
-        message:"something went wrong"
-    })
-    }
+      success: false,
+      message: "something went wrong",
+    });
+  }
 }
 
 async function handleUpdateBook(req, res) {
-    try{
-        const bookId = req.params.id
-        const updateBookData = req.body
-        let data  = await book.findByIdAndUpdate(bookId,updateBookData,{new:true})
+  try {
+    const bookId = req.params.id;
+    const updateBookData = req.body;
+    let data = await book.findByIdAndUpdate(bookId, updateBookData, {
+      new: true,
+    });
 
-        if(data){
-             res.status(200).json({
-                success:true,
-                message:"book updated successfully",
-                data
-            })
-        }
-           else{
-            res.status(404).json({
-                success:false,
-                message:"Book Not Found"        
-            })
-        }
-
+    if (data) {
+      res.status(200).json({
+        success: true,
+        message: "book updated successfully",
+        data,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "Book Not Found",
+      });
     }
-    catch(er){
-        res.status(500).json({
-        success:false,
-        message:"something went wrong"
-    })
-    }
+  } catch (er) {
+    res.status(500).json({
+      success: false,
+      message: "something went wrong",
+    });
+  }
 }
 async function handleDeleteBook(req, res) {
-    try{
+  try {
+    let bookId = req.params.id;
+    const data = await book.findByIdAndDelete(bookId);
 
-        let bookId = req.params.id
-        const data = await book.findByIdAndDelete(bookId)
-
-        if(data){
-            res.status(200).json({
-                success : true,
-                message: "Book Deleted",
-                data 
-            })
-        }
-        else{
-            res.status(404).json({
-                success:false,
-                message: "book not deleted"
-
-            })
-        }
-
+    if (data) {
+      res.status(200).json({
+        success: true,
+        message: "Book Deleted",
+        data,
+      });
+    } else {
+      res.status(404).json({
+        success: false,
+        message: "book not deleted",
+      });
     }
-    catch(er){
-            res.status(404).json({
-                success:false,
-                message:"Book Not Found"
-            })
-    }
+  } catch (er) {
+    res.status(404).json({
+      success: false,
+      message: "Book Not Found",
+    });
+  }
 }
 
 export {
@@ -152,5 +154,5 @@ export {
   handleGetSingleBook,
   handleCreateNewBook,
   handleUpdateBook,
-  handleDeleteBook, 
+  handleDeleteBook,
 };

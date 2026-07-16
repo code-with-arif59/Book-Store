@@ -11,6 +11,8 @@ const PORT =  process.env.PORT || 9000;
 //! DATABASE CONNECTION
 connectDB();
 //! MIDDLEWARES
+express.urlencoded({ extended: true })
+app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 //! ROUTES
 app.use("/",bookRoutes)
